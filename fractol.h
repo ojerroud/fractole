@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fractol.h                                              :+:      :+:    :+:   */
+/*   fractol.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ojerroud <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -26,15 +26,13 @@
 ** largeur x
 */
 
-# define WIN_WIDTH_MIN	200
-# define WIN_WIDTH_MAX	2560
+# define WIN_WIDTH	2560
 
 /*
 ** taille y
 */
 
-# define WIN_HEIGHT_MIN	200
-# define WIN_HEIGHT_MAX	1440
+# define WIN_HEIGHT	1440
 
 /*
 **	variables
@@ -83,5 +81,36 @@ typedef struct		s_fractol
 	t_data			img;
 	t_var			v;
 }					t_fractol;
+
+/*
+**	event.c
+*/
+
+void	move_img(t_fractol *e, t_data *black_screen, int dx, int dy);
+int		key_hook(int keycode, void *param);
+int		mouse_hook(int button, int x, int y, void *param);
+void	zoomer(t_fractol *mlx, t_data *black_screen, float value);
+void	clean_screen(t_fractol *mlx, t_data *e);
+
+/*
+**	cleaners.c
+*/
+
+void	clean_exit(t_fractol *e);
+void	clean_screen(t_fractol *mlx, t_data *e);
+
+/*
+**	algos.c
+*/
+
+void	mandelbrot(t_fractol *e);
+void	init_fractale(t_fractol e);
+
+/*
+**	fdf.c
+*/
+
+void	init_mlx(t_fractol e);
+
 
 #endif

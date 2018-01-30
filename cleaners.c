@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fractol.c                                          :+:      :+:    :+:   */
+/*   cleaners.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ojerroud <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,27 +12,17 @@
 
 #include "fractol.h"
 
-void	init_mlx(t_fractol e)
+void	clean_exit(t_fractol *e)
 {
-	e.mlx = mlx_init();
-	e.win = mlx_new_window(e.mlx, WIN_WIDTH, WIN_HEIGHT, "fractol");
-	init_fractale(e);
-	mlx_key_hook(e.win, key_hook, &e);
-	mlx_mouse_hook(e.win, mouse_hook, &e);
-	mlx_loop(e.mlx);
+	free(e->mlx);
+	free(e->win);
+	exit(0);
 }
 
-int		main(int ac, char** av)
+void	clean_screen(t_fractol *mlx, t_data *e)
 {
-	t_fractol e;
-
-	if (ac != 2 || (ft_strcmp(av[1], "mandelbrot") && ft_strcmp(av[1], "julia")))
-	{
-		ft_putendl("Usage : ./fractol fractale [ mandelbrot - julia ]");
-		return (-1);
-	}
-	e.fractale = av[1];
-	e.v.zoom = 100;
-	init_mlx(e);
-	return (0);
+	e->img = mlx_new_image(mlx->mlx, WIN_WIDTH, WIN_HEIGHT);
+	e->data = (int *)mlx_get_data_addr(mlx->img.img, &e->tmp, &e->tmp, &e->tmp);
+	mlx_put_image_to_window(mlx->mlx, mlx->win, e->img, 0, 0);
+	mlx_destroy_image(mlx->mlx, e->img);
 }
