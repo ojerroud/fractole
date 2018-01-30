@@ -30,12 +30,13 @@ INCDIR = -I minilibx_macos/ -I libft/includes
 	
 all : $(NAME)
 
-$(NAME): recomp
+$(NAME): comp_lib
+	@$(CC) $(CFLAGS) $(NAME) $(SRC) $(INCDIR) $(MINIFLAGS) $(LIBFLAGS)
+	@echo "compile done."
+	
+comp_lib:
 	make -C libft/
 	make -C minilibx_macos/
-
-recomp:
-	@$(CC) $(CFLAGS) $(NAME) $(SRC) $(INCDIR) $(MINIFLAGS) $(LIBFLAGS)
 
 clean : 
 	make clean -C libft

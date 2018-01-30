@@ -12,25 +12,29 @@
 
 #include "fractol.h"
 
-void	julia(t_fractol *mlx, int x, int y)
+void	mandelbrot(t_fractol *mlx, float x, float y, float max, float x1, float y1, float zoom)
 {
-	int	tmp_x;
-	int	tmp_y;
-	int	tmp;
-	int	color;
+	float	z_reel;
+	float	z_imaginaire;
+	float	c_reel;
+	float	c_imaginaire;
+	float	i;
+	float	tmp;
 
-	tmp_x = x;
-	tmp_y = y;
-	color = 0;
-	while (sqrt(pow(tmp_x, 2) + pow(tmp_y, 2)) > 2)
+	c_reel = x / zoom + x1;
+	c_imaginaire = y / zoom + y1;
+	i = 0;
+	z_reel = 0;
+	z_imaginaire = 0;
+	while ((pow(z_reel, 2) + pow(z_imaginaire, 2)) < 4 && max > i)
 	{
-		printf("z = %f\n", sqrt(pow(tmp_x, 2) + pow(tmp_y, 2)));
-		tmp = tmp_x;
-		tmp_x = pow(tmp_x, 2) - pow(tmp_y, 2);
-		tmp_y = 2 * tmp * tmp_y;
-		color++;
+		tmp = z_reel;
+		z_reel = pow(z_reel, 2) - pow(z_imaginaire, 2) + c_reel;
+		z_imaginaire = 2 * tmp * z_imaginaire + c_imaginaire;
+		i++;
 	}
-	mlx_pixel_put(mlx->mlx, mlx->win, x, y, color);
+	if (i == max)
+		mlx_pixel_put(mlx->mlx, mlx->win, c_reel, c_imaginaire, 0xFF0000);
 }
 
 void	clean_exit(t_fractol *mlx)
@@ -50,19 +54,31 @@ int		key_hook(int keycode, void *param)
 int		main(void)
 {
 	t_fractol	mlx;
-	int			x;
-	int			y;
+	float		x;
+	float		y;
+	float		x1;
+	float		x2;
+	float		y1;
+	float		y2;
+	float		zoom;
+	float		max;
 
+	x1 = -2.1;
+	x2 = 0.6;
+	y1 = -1.2;
+	y2 = 1.2;
+	zoom = 100;
+	max = 50;
 	mlx.mlx = mlx_init();
-	mlx.win = mlx_new_window(mlx.mlx, 1600, 1600, "fractol");
+	mlx.win = mlx_new_window(mlx.mlx, WIN_WIDTH_MAX, WIN_HEIGHT_MAX, "fractol");
 	mlx_key_hook(mlx.win, key_hook, &mlx);
-	y = 1;
-	while (y <= 800)
+	y = 0;
+	while (y <= (y2 - y1) * zoom)
 	{
-		x = 1;
-		while (x <= 800)
+		x = 0;
+		while (x <= (x2 - x1) * zoom)
 		{
-			julia(&mlx, x ,y);
+			mandelbrot(&mlx, x ,y, max, x1, y1, zoom);
 			x++;
 		}
 		y++;
