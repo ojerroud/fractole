@@ -37,23 +37,51 @@
 # define WIN_HEIGHT_MAX	1440
 
 /*
-**	my struct table
+**	variables
 */
 
-typedef struct		s_coord
+typedef struct		s_var
 {
-	int			x;
-	int			y;
-	int			z;
-	int			color;
-}					t_coord;
+	float	x;
+	float	y;
+	float	x1;
+	float	x2;
+	float	y1;
+	float	y2;
+	float	c_reel;
+	float	c_imaginaire;
+	float	z_reel;
+	float	z_imaginaire;
+	float	i;
+	float	tmp;
+	float	zoom;
+	float	max;
+	float	image_w;
+	float	image_h;
+	float	image_x;
+	float	image_y;
+}					t_var;
+
+/*
+** img params ()
+*/
+
+typedef struct		s_data
+{
+	void	*img;
+	int		*data;
+	int		tmp;
+	int		x;
+	int		y;
+}					t_data;
 
 typedef struct		s_fractol
 {
 	void			*mlx;
 	void			*win;
-	void			*img;
-	t_coord			**tab;
+	char			*fractale;
+	t_data			img;
+	t_var			v;
 }					t_fractol;
 
 #endif
