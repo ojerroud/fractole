@@ -40,24 +40,24 @@
 
 typedef struct		s_var
 {
-	float	x;
-	float	y;
-	float	x1;
-	float	x2;
-	float	y1;
-	float	y2;
-	float	c_reel;
-	float	c_imaginaire;
-	float	z_reel;
-	float	z_imaginaire;
-	float	i;
-	float	tmp;
-	float	zoom;
-	float	max;
-	float	image_w;
-	float	image_h;
-	float	image_x;
-	float	image_y;
+	double	x;
+	double	y;
+	double	x1;
+	double	x2;
+	double	y1;
+	double	y2;
+	double	c_reel;
+	double	c_imaginaire;
+	double	z_reel;
+	double	z_imaginaire;
+	double	i;
+	double	tmp;
+	double	zoom;
+	double	max;
+	double	image_w;
+	double	image_h;
+	double	image_x;
+	double	image_y;
 }					t_var;
 
 /*
@@ -75,42 +75,43 @@ typedef struct		s_data
 
 typedef struct		s_fractol
 {
-	void			*mlx;
-	void			*win;
-	char			*fractale;
-	t_data			img;
-	t_var			v;
+	void		*mlx;
+	void		*win;
+	char		*fractale;
+	t_data		img;
+	t_var		v;
 }					t_fractol;
 
 /*
 **	event.c
 */
 
-void	move_img(t_fractol *e, t_data *black_screen, int dx, int dy);
-int		key_hook(int keycode, void *param);
-int		mouse_hook(int button, int x, int y, void *param);
-void	zoomer(t_fractol *mlx, t_data *black_screen, float value);
-void	clean_screen(t_fractol *mlx, t_data *e);
+void				move_img(t_fractol *e, t_data *black_screen,
+	int dx, int dy);
+int					key_hook(int keycode, void *param);
+int					mouse_hook(int button, int x, int y, void *param);
+void				zoomer(t_fractol *mlx, t_data *black_screen, double value);
+void				clean_screen(t_fractol *mlx, t_data *e);
 
 /*
 **	cleaners.c
 */
 
-void	clean_exit(t_fractol *e);
-void	clean_screen(t_fractol *mlx, t_data *e);
+void				clean_exit(t_fractol *e);
+void				clean_screen(t_fractol *mlx, t_data *e);
 
 /*
 **	algos.c
 */
 
-void	mandelbrot(t_fractol *e);
-void	init_fractale(t_fractol e);
+void				change_variables(t_fractol *e);
+void				mandelbrot(t_fractol *e);
+void				init_fractale(t_fractol *e);
 
 /*
 **	fdf.c
 */
 
-void	init_mlx(t_fractol e);
-
+void				init_mlx(t_fractol e);
 
 #endif

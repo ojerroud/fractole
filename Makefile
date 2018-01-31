@@ -12,7 +12,7 @@
 
 NAME = fractol
 
-SRC = fractol.c algos.c cleaners.c events.c
+SRC = main.c algos.c cleaners.c events.c
 
 OBJ = $(SRC:.c=.o)
 
