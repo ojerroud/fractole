@@ -27,7 +27,7 @@ int		main(int ac, char **av)
 	t_fractol e;
 
 	if (ac != 2 || (ft_strcmp(av[1], "mandelbrot") &&
-		ft_strcmp(av[1], "julia")))
+		ft_strcmp(av[1], "julia") && ft_strcmp(av[1], "buddhabrot")))
 	{
 		ft_putendl("Usage : ./fractol fractale [ mandelbrot - julia ]");
 		return (-1);

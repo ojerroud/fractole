@@ -33,7 +33,7 @@ void	zoomer(t_fractol *mlx, t_data *black_screen, double value)
 	clean_screen(mlx, black_screen);
 	mlx_destroy_image(mlx->mlx, mlx->img.img);
 	tmp = mlx->v.zoom;
-	mlx->v.zoom += (mlx->v.zoom / 50 * value);
+	mlx->v.zoom += (mlx->v.zoom / 20 * value);
 	if (mlx->v.zoom < 100)
 		mlx->v.zoom = tmp;
 	init_fractale(mlx);
@@ -77,8 +77,8 @@ void	change_c(t_fractol *mlx, t_data *black_screen, float value)
 		return ;
 	clean_screen(mlx, black_screen);
 	mlx_destroy_image(mlx->mlx, mlx->img.img);
-	mlx->v.c_reel += (0.01 * value);
-	mlx->v.c_imaginaire += (0.01 * value);
+	mlx->v.c_reel += (0.001 * value);
+	mlx->v.c_imaginaire += (0.001 * value);
 	init_fractale(mlx);
 }
 
