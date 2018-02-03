@@ -36,6 +36,10 @@ void	zoomer(t_fractol *mlx, t_data *black_screen, double value)
 	mlx->v.zoom += (mlx->v.zoom / 20 * value);
 	if (mlx->v.zoom < 100)
 		mlx->v.zoom = tmp;
+	if ((mlx->v.x2 - mlx->v.x1) * mlx->v.zoom > WIN_WIDTH)
+		mlx->v.x2 = WIN_WIDTH / mlx->v.zoom + mlx->v.x1;
+	if ((mlx->v.y2 - mlx->v.y1) * mlx->v.zoom > WIN_HEIGHT)
+		mlx->v.y2 = WIN_HEIGHT / mlx->v.zoom + mlx->v.y1;
 	init_fractale(mlx);
 }
 

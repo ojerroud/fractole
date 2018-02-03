@@ -27,13 +27,15 @@ int		main(int ac, char **av)
 	t_fractol e;
 
 	if (ac != 2 || (ft_strcmp(av[1], "mandelbrot") &&
-		ft_strcmp(av[1], "julia") && ft_strcmp(av[1], "buddhabrot")))
+		ft_strcmp(av[1], "julia")))
 	{
 		ft_putendl("Usage : ./fractol fractale [ mandelbrot - julia ]");
 		return (-1);
 	}
 	e.fractale = av[1];
 	e.v.zoom = 100;
+	e.v.image_x = 0;
+	e.v.image_y = 0;
 	change_variables(&e);
 	init_mlx(e);
 	return (0);

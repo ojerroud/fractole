@@ -26,13 +26,13 @@
 ** largeur x
 */
 
-# define WIN_WIDTH	2560
+# define WIN_WIDTH	600
 
 /*
 ** taille y
 */
 
-# define WIN_HEIGHT	1440
+# define WIN_HEIGHT	600
 
 /*
 **	variables
@@ -40,8 +40,8 @@
 
 typedef struct		s_var
 {
-	double	x;
-	double	y;
+	int		x;
+	int		y;
 	double	x1;
 	double	x2;
 	double	y1;
@@ -50,14 +50,14 @@ typedef struct		s_var
 	double	c_imaginaire;
 	double	z_reel;
 	double	z_imaginaire;
-	double	i;
+	int		i;
 	double	tmp;
 	double	zoom;
-	double	max;
-	double	image_w;
-	double	image_h;
-	double	image_x;
-	double	image_y;
+	int		max;
+	int		image_w;
+	int		image_h;
+	int		image_x;
+	int		image_y;
 }					t_var;
 
 /*
