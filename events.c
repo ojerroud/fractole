@@ -15,23 +15,23 @@
 void	move_img(t_fractol *e, t_data *black_screen, int dx, int dy)
 {
 	if (dx == dy)
-	{
-		e->v.image_x = 0;
-		e->v.image_y = 0;
-	}
+		init_variables(e);
+	mlx_destroy_image(e->mlx, e->img.img);
 	clean_screen(e, black_screen);
-	e->v.image_x += (dx) ? (e->v.image_w / dx) : 0;
-	e->v.image_y += (dy) ? (e->v.image_h / dy) : 0;
-	mlx_put_image_to_window(e->mlx, e->win, e->img.img,
-		e->v.image_x, e->v.image_y);
+	
+	e->v.x1 -= (dx) ? (e->v.xdiff / (double)dx) : 0;
+	e->v.x2 -= (dx) ? (e->v.xdiff / (double)dx) : 0;
+	e->v.y1 -= (dy) ? (e->v.ydiff / (double)dy) : 0;
+	e->v.y2 -= (dy) ? (e->v.ydiff / (double)dy) : 0;
+	init_fractale(e);
 }
 
 void	zoomer(t_fractol *mlx, t_data *black_screen, double value)
 {
 	int tmp;
 
-	clean_screen(mlx, black_screen);
 	mlx_destroy_image(mlx->mlx, mlx->img.img);
+	clean_screen(mlx, black_screen);
 	tmp = mlx->v.zoom;
 	mlx->v.zoom += (mlx->v.zoom / 20 * value);
 	if (mlx->v.zoom < 100)
@@ -40,6 +40,18 @@ void	zoomer(t_fractol *mlx, t_data *black_screen, double value)
 		mlx->v.x2 = WIN_WIDTH / mlx->v.zoom + mlx->v.x1;
 	if ((mlx->v.y2 - mlx->v.y1) * mlx->v.zoom > WIN_HEIGHT)
 		mlx->v.y2 = WIN_HEIGHT / mlx->v.zoom + mlx->v.y1;
+	if (value < 0)
+	{
+		if ((mlx->v.x2 - mlx->v.x1) * mlx->v.zoom > WIN_WIDTH)
+			mlx->v.x2 = WIN_WIDTH / mlx->v.zoom + mlx->v.x1;
+		else
+			mlx->v.x2 = mlx->v.image_w / mlx->v.zoom + mlx->v.x1;
+		if ((mlx->v.y2 - mlx->v.y1) * mlx->v.zoom > WIN_HEIGHT)
+			mlx->v.y2 = WIN_HEIGHT / mlx->v.zoom + mlx->v.y1;
+		else
+			mlx->v.y2 = mlx->v.image_h / mlx->v.zoom + mlx->v.y1;
+	}
+	printf("[%f][%f]\n", mlx->v.x1, mlx->v.x2);
 	init_fractale(mlx);
 }
 
@@ -61,17 +73,13 @@ int		key_hook(int keycode, void *param)
 	if (keycode == 49)
 		move_img(param, &black_screen, 0, 0);
 	if (keycode == 126)
-		move_img(param, &black_screen, 0, -10);
+		move_img(param, &black_screen, 0, -20);
 	if (keycode == 125)
-		move_img(param, &black_screen, 0, 10);
+		move_img(param, &black_screen, 0, 20);
 	if (keycode == 123)
-		move_img(param, &black_screen, -10, 0);
+		move_img(param, &black_screen, -20, 0);
 	if (keycode == 124)
-		move_img(param, &black_screen, 10, 0);
-	if (keycode == 69)
-		zoomer(param, &black_screen, 1);
-	if (keycode == 78)
-		zoomer(param, &black_screen, -1);
+		move_img(param, &black_screen, 20, 0);
 	return (0);
 }
 
@@ -96,9 +104,9 @@ int		mouse_hook(int button, int x, int y, void *param)
 	t_data	black_screen;
 
 	if (button == 4)
-		change_c(param, &black_screen, -1);
+		zoomer(param, &black_screen, 1);
 	if (button == 5)
-		change_c(param, &black_screen, 1);
+		zoomer(param, &black_screen, -1);
 	x = y;
 	return (0);
 }

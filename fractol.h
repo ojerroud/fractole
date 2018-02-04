@@ -44,8 +44,10 @@ typedef struct		s_var
 	int		y;
 	double	x1;
 	double	x2;
+	double	xdiff;
 	double	y1;
 	double	y2;
+	double	ydiff;
 	double	c_reel;
 	double	c_imaginaire;
 	double	z_reel;
@@ -54,8 +56,8 @@ typedef struct		s_var
 	double	tmp;
 	double	zoom;
 	int		max;
-	int		image_w;
-	int		image_h;
+	double		image_w;
+	double		image_h;
 	int		image_x;
 	int		image_y;
 }					t_var;
@@ -104,7 +106,7 @@ void				clean_screen(t_fractol *mlx, t_data *e);
 **	algos.c
 */
 
-void				change_variables(t_fractol *e);
+void				init_variables(t_fractol *e);
 void				mandelbrot(t_fractol *e);
 void				init_fractale(t_fractol *e);
 
