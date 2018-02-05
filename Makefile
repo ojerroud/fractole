@@ -29,6 +29,9 @@ all : $(OBJS)
 	@make -C minilibx_macos/
 	@$(CC) $(LIB) -o $(NAME) $(OBJS) $(MINIFLAGS)
 
+recomp : $(OGJS)
+	@$(CC) $(LIB) -o $(NAME) $(OBJS) $(MINIFLAGS)
+
 $(OBJS): | $(OBJDIR)
 
 $(OBJDIR):

@@ -6,7 +6,7 @@
 /*   By: ojerroud <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/06 16:25:49 by ojerroud          #+#    #+#             */
-/*   Updated: 2017/12/06 16:25:53 by ojerroud         ###   ########.fr       */
+/*   Updated: 2018/02/05 15:06:47 by ojerroud         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	init_variables(t_fractol *e)
 {
-	e->v.zoom = 200;
+	e->v.zoom = ZOOM;
 	e->v.image_x = -1;
 	e->v.image_y = -1;
 	if (!ft_strcmp(e->fractale, "mandelbrot"))
@@ -84,6 +84,7 @@ void	init_fractale(t_fractol *e)
 {
 	e->v.image_w = (e->v.x2 - e->v.x1) * e->v.zoom;
 	e->v.image_h = (e->v.y2 - e->v.y1) * e->v.zoom;
+	//printf("image_w[%f]image_h[%f]\n", e->v.image_w, e->v.image_h);
 	e->img.img = mlx_new_image(e->mlx, e->v.image_w, e->v.image_h * 1.1);
 	e->img.data = (int *)mlx_get_data_addr(e->img.img, &e->img.tmp,
 		&e->img.tmp, &e->img.tmp);

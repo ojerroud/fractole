@@ -22,17 +22,9 @@
 # include "mlx.h"
 # include "libft.h"
 
-/*
-** largeur x
-*/
-
 # define WIN_WIDTH	600
-
-/*
-** taille y
-*/
-
 # define WIN_HEIGHT	600
+# define ZOOM		150
 
 /*
 **	variables
@@ -56,8 +48,8 @@ typedef struct		s_var
 	double	tmp;
 	double	zoom;
 	int		max;
-	double		image_w;
-	double		image_h;
+	double	image_w;
+	double	image_h;
 	int		image_x;
 	int		image_y;
 }					t_var;
@@ -93,7 +85,7 @@ void				move_img(t_fractol *e, t_data *black_screen,
 int					key_hook(int keycode, void *param);
 int					mouse_hook(int button, int x, int y, void *param);
 void				zoomer(t_fractol *mlx, t_data *black_screen, double value);
-void				clean_screen(t_fractol *mlx, t_data *e);
+void	an_screen(t_fractol *mlx, t_data *e);
 
 /*
 **	cleaners.c

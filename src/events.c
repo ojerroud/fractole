@@ -15,13 +15,17 @@
 void	move_img(t_fractol *e, t_data *black_screen, int dx, int dy)
 {
 	if (dx == dy)
+	{
 		init_variables(e);
+		init_fractale(e);
+		return ;
+	}
 	mlx_destroy_image(e->mlx, e->img.img);
 	clean_screen(e, black_screen);
-	e->v.x1 -= (dx) ? (e->v.xdiff / (double)dx) : 0;
-	e->v.x2 -= (dx) ? (e->v.xdiff / (double)dx) : 0;
-	e->v.y1 -= (dy) ? (e->v.ydiff / (double)dy) : 0;
-	e->v.y2 -= (dy) ? (e->v.ydiff / (double)dy) : 0;
+	e->v.x1 -= (dx) ? (e->v.xdiff) / (double)dx : 0;
+	e->v.x2 -= (dx) ? (e->v.xdiff) / (double)dx : 0;
+	e->v.y1 -= (dy) ? (e->v.ydiff) / (double)dy : 0;
+	e->v.y2 -= (dy) ? (e->v.ydiff) / (double)dy : 0;
 	init_fractale(e);
 }
 
@@ -33,8 +37,7 @@ void	zoomer(t_fractol *mlx, t_data *black_screen, double value)
 	clean_screen(mlx, black_screen);
 	tmp = mlx->v.zoom;
 	mlx->v.zoom += (mlx->v.zoom / 20 * value);
-	if (mlx->v.zoom < 100)
-		mlx->v.zoom = tmp;
+	mlx->v.zoom = (mlx->v.zoom < ZOOM) ? tmp : mlx->v.zoom;
 	if ((mlx->v.x2 - mlx->v.x1) * mlx->v.zoom > WIN_WIDTH)
 		mlx->v.x2 = WIN_WIDTH / mlx->v.zoom + mlx->v.x1;
 	if ((mlx->v.y2 - mlx->v.y1) * mlx->v.zoom > WIN_HEIGHT)
@@ -50,6 +53,8 @@ void	zoomer(t_fractol *mlx, t_data *black_screen, double value)
 		else
 			mlx->v.y2 = mlx->v.image_h / mlx->v.zoom + mlx->v.y1;
 	}
+	mlx->v.xdiff = mlx->v.x2 - mlx->v.x1;
+	mlx->v.ydiff = mlx->v.y2 - mlx->v.y1;
 	init_fractale(mlx);
 }
 
