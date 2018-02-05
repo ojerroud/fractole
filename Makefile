@@ -9,42 +9,37 @@
 #    Updated: 2017/11/08 14:16:20 by ojerroud         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
 NAME = fractol
+vpath %.c src
+vpath_h = -Iinclude -Iminilibx_macos -Ilibft/includes
+LIB = -Llibft/ -lft -Lminilibx_macos -lmlx
 
-SRC = main.c algos.c cleaners.c events.c
+MINIFLAGS = -framework OpenGL -framework AppKit
+CC = gcc 
 
-OBJ = $(SRC:.c=.o)
+OBJDIR := obj
+OBJS := $(addprefix $(OBJDIR)/,algos.o cleaners.o main.o events.o)
 
-CFLAGS = -Wall -Wextra -Werror -o
+$(OBJDIR)/%.o : %.c
+	@$(CC) $(CPPFLAGS) $(CFLAGS) $(vpath_h) -Wall -Wextra -Werror -c \
+	$(OUTPUT_OPTION) $<
 
-MINIFLAGS = -L./minilibx_macos/ -lmlx -framework OpenGL -framework AppKit
+all : $(OBJS)
+	@make -C libft/
+	@make -C minilibx_macos/
+	@$(CC) $(LIB) -o $(NAME) $(OBJS) $(MINIFLAGS)
 
-LIBFLAGS = -L./libft/ -lft
+$(OBJS): | $(OBJDIR)
 
-CC = gcc
+$(OBJDIR):
+	@mkdir $(OBJDIR)
 
-INCDIR = -I minilibx_macos/ -I libft/includes
-
-.PHONY: all re clean fclean
-	
-all : $(NAME)
-
-$(NAME): comp_lib
-	@$(CC) $(CFLAGS) $(NAME) $(SRC) $(INCDIR) $(MINIFLAGS) $(LIBFLAGS)
-	@echo "compile done."
-	
-comp_lib:
-	make -C libft/
-	make -C minilibx_macos/
-
-clean : 
-	make clean -C libft
-	/bin/rm -f $(OBJ)
-
+clean :
+	@make clean -C libft
+	@/bin/rm -rf $(OBJDIR)
+	@echo "clean fractol"
 fclean : clean
 	make fclean -C libft
-	/bin/rm -f $(NAME)
+	@/bin/rm -f $(NAME)
 
 re: fclean all
-
