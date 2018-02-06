@@ -22,8 +22,8 @@
 # include "mlx.h"
 # include "libft.h"
 
-# define WIN_WIDTH	600
-# define WIN_HEIGHT	600
+# define WIN_WIDTH	800
+# define WIN_HEIGHT	800
 # define ZOOM		150
 
 /*
@@ -52,6 +52,7 @@ typedef struct		s_var
 	double	image_h;
 	int		image_x;
 	int		image_y;
+	int		p;
 }					t_var;
 
 /*
@@ -80,12 +81,12 @@ typedef struct		s_fractol
 **	event.c
 */
 
-void				move_img(t_fractol *e, t_data *black_screen,
-	int dx, int dy);
-int					key_hook(int keycode, void *param);
+void				move_img(t_fractol *e, t_data *black_screen, int dx, int dy);
+int					key_hook(int keycode, t_fractol *e);
 int					mouse_hook(int button, int x, int y, void *param);
 void				zoomer(t_fractol *mlx, t_data *black_screen, double value);
-void	an_screen(t_fractol *mlx, t_data *e);
+void				change_screen(t_fractol *mlx, t_data *e);
+int					mouse_mvm(int x, int y, t_fractol *e);
 
 /*
 **	cleaners.c
@@ -100,6 +101,8 @@ void				clean_screen(t_fractol *mlx, t_data *e);
 
 void				init_variables(t_fractol *e);
 void				mandelbrot(t_fractol *e);
+void				julia(t_fractol *e);
+void				shuriken(t_fractol *e);
 void				init_fractale(t_fractol *e);
 
 /*

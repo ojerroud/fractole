@@ -20,7 +20,6 @@ void	move_img(t_fractol *e, t_data *black_screen, int dx, int dy)
 		init_fractale(e);
 		return ;
 	}
-	mlx_destroy_image(e->mlx, e->img.img);
 	clean_screen(e, black_screen);
 	e->v.x1 -= (dx) ? (e->v.xdiff) / (double)dx : 0;
 	e->v.x2 -= (dx) ? (e->v.xdiff) / (double)dx : 0;
@@ -33,7 +32,6 @@ void	zoomer(t_fractol *mlx, t_data *black_screen, double value)
 {
 	int tmp;
 
-	mlx_destroy_image(mlx->mlx, mlx->img.img);
 	clean_screen(mlx, black_screen);
 	tmp = mlx->v.zoom;
 	mlx->v.zoom += (mlx->v.zoom / 20 * value);
@@ -65,40 +63,54 @@ void	zoomer(t_fractol *mlx, t_data *black_screen, double value)
 **	down
 **	left
 **	right
+**	p > pause julia mvm
+**	} > max-
+**	{ > max+
 */
 
-int		key_hook(int keycode, void *param)
+int		key_hook(int keycode, t_fractol *e)
 {
 	t_data	black_screen;
 
 	if (keycode == 53)
-		clean_exit(param);
+		clean_exit(e);
 	if (keycode == 49)
-		move_img(param, &black_screen, 0, 0);
+		move_img(e, &black_screen, 0, 0);
 	if (keycode == 126)
-		move_img(param, &black_screen, 0, -20);
+		move_img(e, &black_screen, 0, -20);
 	if (keycode == 125)
-		move_img(param, &black_screen, 0, 20);
+		move_img(e, &black_screen, 0, 20);
 	if (keycode == 123)
-		move_img(param, &black_screen, -20, 0);
+		move_img(e, &black_screen, -20, 0);
 	if (keycode == 124)
-		move_img(param, &black_screen, 20, 0);
+		move_img(e, &black_screen, 20, 0);
 	if (keycode == 69)
-		zoomer(param, &black_screen, 1);
+		zoomer(e, &black_screen, 1);
 	if (keycode == 78)
-		zoomer(param, &black_screen, -1);
+		zoomer(e, &black_screen, -1);
+	if (keycode == 35)
+		e->v.p = (e->v.p == 1) ? 0 : 1;
+	if (keycode == 30 || keycode == 33)
+	{
+		e->v.max += (keycode == 30) ? 10 : -10;
+		clean_screen(e, &black_screen);
+		init_fractale(e);
+	}
 	return (0);
 }
 
-void	change_c(t_fractol *mlx, t_data *black_screen, float value)
+int		mouse_mvm(int x, int y, t_fractol *e)
 {
-	if (ft_strcmp(mlx->fractale, "julia"))
-		return ;
-	clean_screen(mlx, black_screen);
-	mlx_destroy_image(mlx->mlx, mlx->img.img);
-	mlx->v.c_reel += (0.001 * value);
-	mlx->v.c_imaginaire += (0.001 * value);
-	init_fractale(mlx);
+	t_data	black_screen;
+
+	if (ft_strcmp(e->fractale, "julia") || e->v.p == 0)
+		return (0);
+	clean_screen(e, &black_screen);
+	e->v.c_reel += 0.001;
+	e->v.c_imaginaire += 0.001;
+	init_fractale(e);
+	x = y;
+	return (0);
 }
 
 /*
