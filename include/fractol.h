@@ -68,6 +68,18 @@ typedef struct		s_data
 	int		y;
 }					t_data;
 
+/*
+**	mouse mvm params
+*/
+
+typedef struct		s_mouse
+{
+	int		x;
+	int		y;
+	int		x_mid;
+	int		y_mid;
+}					t_mouse;
+
 typedef struct		s_fractol
 {
 	void		*mlx;
@@ -75,6 +87,7 @@ typedef struct		s_fractol
 	char		*fractale;
 	t_data		img;
 	t_var		v;
+	t_mouse		mouse;
 }					t_fractol;
 
 /*
