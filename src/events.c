@@ -101,22 +101,21 @@ int		key_hook(int keycode, t_fractol *e)
 
 int		mouse_mvm(int x, int y, t_fractol *e)
 {
-	//t_data	black_screen;
+	t_data	black_screen;
 
 	if (ft_strcmp(e->fractale, "julia") || e->v.p == 0)
 		return (0);
-	//clean_screen(e, &black_screen);
+	clean_screen(e, &black_screen);
 	e->mouse.x_mid = WIN_WIDTH / 2;
 	e->mouse.y_mid = WIN_HEIGHT / 2;
 	x = (x < 0) ? 0 : x;
-	y = (y < e->mouse.y_mid) ? 0 : y;
+	y = (y < 0) ? 0 : y;
 	x = (x > WIN_WIDTH) ? WIN_WIDTH : x;
 	y = (y > WIN_HEIGHT) ? WIN_HEIGHT : y;
-	printf("[%d][%d]\n", x, y);
-	/*e->v.c_reel += 0.001;
-	e->v.c_imaginaire += 0.001;
+	y = WIN_HEIGHT - y;
+	e->v.c_reel = ((double)x / WIN_WIDTH * 2) - 1;
+	e->v.c_imaginaire = (double)y / WIN_HEIGHT;
 	init_fractale(e);
-	x = y;*/
 	return (0);
 }
 
