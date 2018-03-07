@@ -30,10 +30,12 @@ int		main(int ac, char **av)
 	if (ac != 2 || (ft_strcmp(av[1], "mandelbrot") &&
 		ft_strcmp(av[1], "julia") && ft_strcmp(av[1], "shuriken")))
 	{
-		ft_putendl("Usage : ./fractol fractale [mandelbrot - julia - shuriken]");
+		ft_putstr("Usage : ./fractol fractale [mandelbrot - julia");
+		ft_putendl("- shuriken]");
 		return (-1);
 	}
 	e.fractale = av[1];
+	e.v.zoom = ZOOM;
 	init_variables(&e);
 	init_mlx(e);
 	return (0);

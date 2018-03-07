@@ -14,7 +14,8 @@
 
 void	init_variables(t_fractol *e)
 {
-	if (!ft_strcmp(e->fractale, "mandelbrot") || !ft_strcmp(e->fractale, "shuriken"))
+	if (!ft_strcmp(e->fractale, "mandelbrot") ||
+		!ft_strcmp(e->fractale, "shuriken"))
 	{
 		e->v.x1 = -2.1;
 		e->v.y1 = -1.2;
@@ -30,7 +31,6 @@ void	init_variables(t_fractol *e)
 		e->v.max = 150;
 		e->v.p = 1;
 	}
-	e->v.zoom = ZOOM;
 	e->v.image_x = -1;
 	e->v.image_y = -1;
 	e->v.x2 = WIN_WIDTH / e->v.zoom + e->v.x1;
@@ -52,8 +52,10 @@ void	mandelbrot(t_fractol *e)
 		< 4 && ++e->v.i < e->v.max)
 	{
 		e->v.tmp = e->v.z_reel;
-		e->v.z_reel = e->v.z_reel * e->v.z_reel - e->v.z_imaginaire * e->v.z_imaginaire + e->v.c_reel;
-		e->v.z_imaginaire =  2 * e->v.z_imaginaire * e->v.tmp + e->v.c_imaginaire;
+		e->v.z_reel = e->v.z_reel * e->v.z_reel -
+		e->v.z_imaginaire * e->v.z_imaginaire + e->v.c_reel;
+		e->v.z_imaginaire = 2 * e->v.z_imaginaire
+		* e->v.tmp + e->v.c_imaginaire;
 	}
 	if (e->v.i != e->v.max)
 		e->img.data[(int)e->v.image_w * (int)e->v.y + (int)e->v.x] =
@@ -71,8 +73,10 @@ void	shuriken(t_fractol *e)
 		< 4 && ++e->v.i < e->v.max)
 	{
 		e->v.tmp = e->v.z_reel;
-		e->v.z_reel = e->v.z_reel * e->v.z_reel - e->v.z_imaginaire * e->v.z_imaginaire + e->v.c_reel;
-		e->v.z_imaginaire =  - (2 * e->v.z_imaginaire * e->v.tmp) + e->v.c_imaginaire;
+		e->v.z_reel = e->v.z_reel * e->v.z_reel -
+		e->v.z_imaginaire * e->v.z_imaginaire + e->v.c_reel;
+		e->v.z_imaginaire = -(2 * e->v.z_imaginaire
+			* e->v.tmp) + e->v.c_imaginaire;
 	}
 	if (e->v.i != e->v.max)
 		e->img.data[(int)e->v.image_w * (int)e->v.y + (int)e->v.x] =

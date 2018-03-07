@@ -94,7 +94,8 @@ typedef struct		s_fractol
 **	event.c
 */
 
-void				move_img(t_fractol *e, t_data *black_screen, int dx, int dy);
+void				move_img(t_fractol *e, t_data *black_screen,
+	int dx, int dy);
 int					key_hook(int keycode, t_fractol *e);
 int					mouse_hook(int button, int x, int y, void *param);
 void				zoomer(t_fractol *mlx, t_data *black_screen, double value);

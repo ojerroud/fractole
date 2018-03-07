@@ -72,22 +72,14 @@ int		key_hook(int keycode, t_fractol *e)
 {
 	t_data	black_screen;
 
-	if (keycode == 53)
-		clean_exit(e);
-	if (keycode == 49)
-		move_img(e, &black_screen, 0, 0);
-	if (keycode == 126)
-		move_img(e, &black_screen, 0, -20);
-	if (keycode == 125)
-		move_img(e, &black_screen, 0, 20);
-	if (keycode == 123)
-		move_img(e, &black_screen, -20, 0);
-	if (keycode == 124)
-		move_img(e, &black_screen, 20, 0);
-	if (keycode == 69)
-		zoomer(e, &black_screen, 1);
-	if (keycode == 78)
-		zoomer(e, &black_screen, -1);
+	(keycode == 53) ? clean_exit(e) : 0;
+	(keycode == 49) ? move_img(e, &black_screen, 0, 0) : 0;
+	(keycode == 126) ? move_img(e, &black_screen, 0, -20) : 0;
+	(keycode == 125) ? move_img(e, &black_screen, 0, 20) : 0;
+	(keycode == 123) ? move_img(e, &black_screen, -20, 0) : 0;
+	(keycode == 124) ? move_img(e, &black_screen, 20, 0) : 0;
+	(keycode == 69) ? zoomer(e, &black_screen, 1) : 0;
+	(keycode == 78) ? zoomer(e, &black_screen, -1) : 0;
 	if (keycode == 35)
 		e->v.p = (e->v.p == 1) ? 0 : 1;
 	if (keycode == 30 || keycode == 33)
