@@ -14,6 +14,7 @@
 
 void	move_img(t_fractol *e, t_data *black_screen, int dx, int dy)
 {
+	clean_screen(e, black_screen);
 	if (dx == dy)
 	{
 		e->v.zoom = ZOOM;
@@ -21,7 +22,6 @@ void	move_img(t_fractol *e, t_data *black_screen, int dx, int dy)
 		init_fractale(e);
 		return ;
 	}
-	clean_screen(e, black_screen);
 	e->v.x1 -= (dx) ? (e->v.xdiff) / (double)dx : 0;
 	e->v.x2 -= (dx) ? (e->v.xdiff) / (double)dx : 0;
 	e->v.y1 -= (dy) ? (e->v.ydiff) / (double)dy : 0;
