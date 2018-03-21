@@ -16,6 +16,7 @@ void	move_img(t_fractol *e, t_data *black_screen, int dx, int dy)
 {
 	if (dx == dy)
 	{
+		e->v.zoom = ZOOM;
 		init_variables(e);
 		init_fractale(e);
 		return ;
